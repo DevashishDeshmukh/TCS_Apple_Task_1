@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chat with TinyLLaMA</title>
+</head>
+<body>
+  <h1>Assignment 1</h1>
+  <h2>LLM Model used: TinyLlama</h2>
+  <br/>
+  <h2>Enter Prompt</h2>
+  <textarea id="prompt" placeholder="Type your message here..."></textarea>
+  <br />
+  <button onclick="sendPrompt()">Send</button>
+  <h2>Response:</h2>
+  <pre id="response"></pre>
+
+  <script>
+    async function sendPrompt() {
+      const prompt = document.getElementById('prompt').value;
+      const responseBox = document.getElementById('response');
+      responseBox.textContent = "Loading...";
+
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        responseBox.textContent = data.response;
+      } else {
+        responseBox.textContent = 'Error: ' + (await res.text());
+      }
+    }
+  </script>
+</body>
+</html>
