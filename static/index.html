@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Chat with TinyLLaMA</title>
+  <title>TCS Apple Training Task - 1</title>
 </head>
 <body>
-  <h1>Assignment 1</h1>
+  <h1>TCS Apple Training Task - 1</h1>
   <h2>LLM Model used: TinyLlama</h2>
   <br/>
   <h2>Enter Prompt</h2>
@@ -18,8 +18,8 @@
   <script>
     async function sendPrompt() {
       const prompt = document.getElementById('prompt').value;
-      const responseBox = document.getElementById('response');
-      responseBox.textContent = "Loading...";
+      const responseArea = document.getElementById('response');
+      responseArea.textContent = "Loading...";
 
       const res = await fetch('/chat', {
         method: 'POST',
@@ -29,9 +29,9 @@
 
       if (res.ok) {
         const data = await res.json();
-        responseBox.textContent = data.response;
+        responseArea.textContent = data.response;
       } else {
-        responseBox.textContent = 'Error: ' + (await res.text());
+        responseArea.textContent = 'Error: ' + (await res.text());
       }
     }
   </script>

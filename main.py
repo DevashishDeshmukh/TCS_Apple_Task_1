@@ -13,7 +13,9 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
-def serve_frontend():
+def serve_frontend(request: Request):
+    request_id = getattr(request.state, "request_id", "N/A")
+    logging.info(f"[Request ID: {request_id}] GET / request received.")
     return FileResponse("static/index.html")
 
 @app.middleware("http")
@@ -27,9 +29,9 @@ async def add_request_id_middleware(request: Request, call_next):
 class PromptRequest(BaseModel):
     prompt: str
 
-def log_chat_interaction(request_id: str, prompt: str, llm_response: str):
+def log_chat_interaction(request_id: str, prompt: str, model_response: str):
     logging.info(f"[Request ID: {request_id}] User Prompt: {prompt}")
-    logging.info(f"[Request ID: {request_id}] LLM Response: {llm_response}")
+    logging.info(f"[Request ID: {request_id}] Model Response: {model_response}")
 
 @app.post("/chat")
 async def chat(request: Request, body: PromptRequest):
