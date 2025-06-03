@@ -1,8 +1,11 @@
 # TCS_Apple_Training_Task_1 & Task_2
+
 ## Task 1
 1. Build a FastAPI application to query general knowledge questions to LLM. LLLM must be running locally. 
 2. Log each API call with a unique identifier in the console log along with the user query and LLM response. This identifier should be tracked at the API Level.
+
 ### Model used: TinyLlama
+
 ### This model is running locally using ollama.
 Part 1: Build a FastAPI application to query general knowledge questions to LLM. LLLM must be running locally. 
 
@@ -32,14 +35,16 @@ Part 2: Log each API call with a unique identifier in the console log along with
 
    
 ### Vector DB used: ChromaDB
+
 ### PDF Ingestion
 1. Extracts text using PyMuPDF
 2. Splits into ~500 character chunks
 3. Embeds each chunk using all-MiniLM-L6-v2
 4. Stores embeddings + metadata in ChromaDB
 
+
 ### RAG Logic
 1. Encodes question
-2. Queries top-3 most relevant chunks
+2. Queries top-n most relevant chunks
 3. Assembles prompt with context
 4. Sends to tinyllama via Ollama
