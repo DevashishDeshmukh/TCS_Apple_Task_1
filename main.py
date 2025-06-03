@@ -1,3 +1,6 @@
+# TASK-1 CODE
+
+
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -46,10 +49,12 @@ async def chat(request: Request, body: PromptRequest):
         return JSONResponse(
             status_code=200,
             content={"response": message, "request_id": request_id},
-            headers={"X-Request-ID": request_id}
         )
     
     except Exception as e:
         request_id = getattr(request.state, "request_id", "N/A")
         logging.error(f"[Request ID: {request_id}] Exception occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"{str(e)} | Request ID: {request_id}")
+    
+    
+    
